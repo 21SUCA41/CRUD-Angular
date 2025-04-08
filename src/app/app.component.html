@@ -1,0 +1,77 @@
+
+<div class="container">
+    <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+      <div class="container-fluid">
+        <a class="navbar-brand" href="#">Fruits</a>
+        <button type="button" class="btn btn-dark" data-bs-toggle="modal"  (click)="reset()" data-bs-target="#exampleModal">Add+</button>
+        </div>
+      
+     
+    </nav>
+    <div class="container">
+        <table class="table">
+            <thead>
+                <tr>
+                    <th scope="col">Id</th>
+                    <th scope="col">Name</th>
+                    <th scope="col">Quantity</th>
+                    <th scope="col">Price</th>
+                    <th scope="col">Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let item of allfruit; let i = index;">
+                    <td scope="row">{{i + 1}}</td>
+                    <td>{{item.name}}</td>
+                    <td>{{item.quantity}}</td>
+                    <td>{{item.price}}</td>
+                    <td><button class="btn btn-info me-2" (click)="edit(item)" data-bs-toggle="modal" data-bs-target="#exampleModal">Edit</button></td>
+                    <td><button class="btn btn-danger" (click)="removeItem(item.id)">Delete</button></td>
+                </tr>
+                
+            </tbody>
+        </table>
+    </div>
+ 
+  </div>
+
+  <!-- <router-outlet></router-outlet> -->
+  <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <form [formGroup]="fruitform" (ngSubmit)="submit()">
+      <div class="modal-content">
+        <div class="modal-header">
+            <h1 class="modal-title fs-5" id="exampleModalLabel">
+              {{ editMode ? 'Edit Fruit' : 'Add Fruit' }}
+            </h1>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+        <div class="modal-body">
+         
+                <div class="mb-3">
+                  <label for="fruitname" class="col-form-label">Name:</label>
+                  <input type="text" class="form-control" id="fruitname" formControlName="name">
+                  <div *ngIf="fname.errors?.['required']&& (fname.dirty || fname.touched)" class="text-danger">Name is required</div>
+                  </div>
+                  <div class="mb-3">
+                  <label for="fruitquantity" class="col-form-label">Quantity:</label>
+                  <input type="number" class="form-control" id="fruitquantity" formControlName="quantity">
+                  <div *ngIf="fquantity.errors?.['required']&& (fquantity.dirty || fquantity.touched)" class="text-danger">quantity is required</div>
+                </div>
+                <div class="mb-3">
+                  <label for="fruitprice" class="col-form-label">Price:</label>
+                  <input type="number" class="form-control" id="fruitprice" formControlName="price">
+                  <div *ngIf="fprice.errors?.['required']&& (fprice.dirty || fprice.touched)" class="text-danger">price is required</div>
+                </div>
+       
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+          <button type="submit" class="btn btn-primary" [disabled]="!fruitform.valid" data-bs-dismiss="modal">Save</button>
+        </div>
+ 
+      </div>
+    </form>
+    </div>
+ 
+</div>
